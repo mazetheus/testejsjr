@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário</title>
+    <script src="scripts.js"></script>
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+    <div class="container">
+        <form>
+            <label for="nome"> Nome: </label>
+            <input type="text" name="nome" id="nome" required>
+            <label for="cpf"> CPF: </label>
+            <input type="text" onkeydown="javascript: fMasc( this, mCPF );" id="RegraValida" name="cpf" id="cpf"
+                required>
+            <label for="nascimento"> Data de nascimento: </label>
+            <input type="date" name="nascimento" id="nascimento" required>
+            <div class="dependentes">
+                <button id="btnAdicionarDependentes">
+                    📝Adicionar Dependentes
+                </button>
+                <div class="container" id="dependentesContainer">
+                </div>
+                <button class="green" id="btnCapturarDados">
+                    ✅ Capturar Dados
+                </button>
+            </div>
+            <pre id="containerDados"></pre>
+            <button onclick="ValidaCPF();">Enviar</button>
+        </form>
+    </div>
+
+</body>
+
+</html>
