@@ -2,6 +2,12 @@ function msg() {
     alert("Você clicou no botão!");
 }
 
+function enviarFormulario() {
+  let cpf = document.querySelector(`#cpf`).value;
+  alert(verificarCPF(cpf));
+  //consultarCep();
+}
+
 function consultarCep() {
   let cep = document.querySelector(`#cep`).value;
   let url = `https://viacep.com.br/ws/${cep}/json/`;
@@ -29,6 +35,36 @@ function exibirEndereco(dados) {
 //         alert("CPF Inválido");
 //     }
 // }
+
+function verificarCPF(cpf) {	
+  // Remover todos os dígitos que não sejam númeroos
+	cpf = cpf.replace(/[^\d]+/g,'');	
+
+	// Retorna falso se a quantidade de numeros não	for correta
+	if (cpf.length != 11) {
+    return false; }
+    else {
+      // Valida 1o digito	
+      add = 0;	
+      for (i=0; i < 9; i ++)		
+        add += parseInt(cpf.charAt(i)) * (10 - i);	
+        rev = 11 - (add % 11);	
+        if (rev == 10 || rev == 11)		
+          rev = 0;	
+        if (rev != parseInt(cpf.charAt(9)))		
+          return false;		
+      // Valida 2o digito	
+      add = 0;	
+      for (i = 0; i < 10; i ++)		
+        add += parseInt(cpf.charAt(i)) * (11 - i);	
+      rev = 11 - (add % 11);	
+      if (rev == 10 || rev == 11)	
+        rev = 0;	
+      if (rev != parseInt(cpf.charAt(10)))
+        return false;		
+      return true;   
+    }
+}
 
 // function fMasc(objeto, mascara) {
 //     obj = objeto
