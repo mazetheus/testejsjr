@@ -9,25 +9,34 @@
     <script src="scripts.js"></script>
     <link rel="stylesheet" href="styles.css">
 
+
 </head>
 
 <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
     <div class="container">
             <!-- <label for="nome"> Nome: </label>
-            <input type="text" name="nome" id="nome" required> -->
+            <input type="text" name="nome" id="nome" required>
             <label for="cpf"> CPF: </label>
-            <!-- <input type="text" onkeydown="javascript: fMasc( this, mCPF );" id="RegraValida" maxlength="11" name="cpf" id="cpf"
-                required> -->
+            <input type="text" onkeydown="javascript: fMasc( this, mCPF );" id="RegraValida" maxlength="11" name="cpf" id="cpf"
+                required>
             <input type="text" maxlength="14" name="cpf" id="cpf"
                 required>
-            <!-- <label for="nascimento"> Data de nascimento: </label>
+            <label for="nascimento"> Data de nascimento: </label>
             <input type="date" name="nascimento" id="nascimento" required>
             <label for="cep"> CEP: </label>
             <input type="text" name="cep" id="cep" required>
             <div id="resultado">
                 <p>Resultado:</p>
-            </div> -->
-            <button onclick="enviarFormulario();">Enviar</button>
+            </div>
+            <button onclick="enviarFormulario();">Enviar</button> -->
+            <div class="container1">
+                <button class="add_form_field">Add New Field &nbsp; 
+                  <span style="font-size:16px; font-weight:bold;">+ </span>
+                </button>
+                <div><input type="text" name="mytext[]"></div>
+            </div>
     </div>
 
 </body>

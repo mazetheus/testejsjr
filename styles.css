@@ -8,7 +8,7 @@ body {
   overflow-x: hidden;
 }
 
-.container {
+#container {
   max-width: 100%;
   display: flex;
   flex-direction: row;
@@ -19,4 +19,52 @@ form {
   width: 35%;
   display: flex;
   flex-direction: column;
+}
+
+.modo-escuro {
+  background-color: #242424;
+}
+
+.header label {
+  width: 500px;
+  height: 200px;
+  position: relative;
+  display: block;
+  background: #ebebeb;
+  border-radius: 200px;
+  box-shadow: inset 0px 5px 15px rgba(0, 0, 0, 0.4), inset 0px -5px 15px rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+}
+.header label:after {
+  content: "";
+  width: 180px;
+  height: 180px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: linear-gradient(180deg, #ffcc89, #d8860b);
+  border-radius: 180px;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+}
+.header input {
+  width: 0;
+  height: 0;
+  visibility: hidden;
+}
+.header input:checked + label {
+  background: #242424;
+}
+.header input:checked + label:after {
+  left: 490px;
+  transform: translateX(-100%);
+  background: linear-gradient(180deg, #777, #3a3a3a);
+}
+.header label, .header label:after {
+  transition: 0.3s;
+}
+.header label:active:after {
+  width: 260px;
+}
+.header input:checked + label {
+  background: #242424;
 }/*# sourceMappingURL=styles.css.map */

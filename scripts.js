@@ -1,3 +1,16 @@
+//let isDark = document.querySelector('#toggle-dark').checked;
+let container = document.querySelector('#container');
+let isDark = false;
+
+function modoEscuro(){
+  isDark = !isDark;
+  if(isDark){
+    container.classList.add("modo-escuro");
+  } else {
+    container.classList.remove("modo-escuro");
+  }
+}
+
 function msg() {
     alert("Você clicou no botão!");
 }
@@ -5,7 +18,7 @@ function msg() {
 function enviarFormulario() {
   let cpf = document.querySelector(`#cpf`).value;
   alert(verificarCPF(cpf));
-  //consultarCep();
+  consultarCep();
 }
 
 function consultarCep() {
@@ -25,16 +38,6 @@ function exibirEndereco(dados) {
 
   resultado.innerHTML = `<p>Endereço: ${dados.logradouro}</p>`;
 }
-
-// function ValidaCPF() {
-//     var RegraValida = document.getElementById("RegraValida").value;
-//     var cpfValido = /^(([0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2})|([0-9]{11}))$/;
-//     if (cpfValido.test(RegraValida) == true) {
-//         alert("CPF Válido");
-//     } else {
-//         alert("CPF Inválido");
-//     }
-// }
 
 function verificarCPF(cpf) {	
   // Remover todos os dígitos que não sejam númeroos
@@ -66,106 +69,109 @@ function verificarCPF(cpf) {
     }
 }
 
-// function fMasc(objeto, mascara) {
-//     obj = objeto
-//     masc = mascara
-//     setTimeout("fMascEx()", 1)
-// }
+function fMasc(objeto, mascara) {
+    obj = objeto
+    masc = mascara
+    setTimeout("fMascEx()", 1)
+}
 
-// function fMascEx() {
-//     obj.value = masc(obj.value)
-// }
+function fMascEx() {
+    obj.value = masc(obj.value)
+}
 
-// function mCPF(cpf) {
-//     cpf = cpf.replace(/\D/g, "")
-//     cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2")
-//     cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2")
-//     cpf = cpf.replace(/(\d{3})(\d{1,2})$/, "$1-$2")
-//     return cpf
-// }
+function mCPF(cpf) {
+    cpf = cpf.replace(/\D/g, "")
+    cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2")
+    cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2")
+    cpf = cpf.replace(/(\d{3})(\d{1,2})$/, "$1-$2")
+    return cpf
+}
 
-// var dependentes = [{
-// 	identificador: 13,
-//   nome: "Joana da Silva",
-//   idade: 12,
-// }];
+function adicionarHobby(plusElement){
 
+	let displayButton = document.querySelector("#botaoAdd");
 
-// function carregarDependentes(){
-// 	let dependentes_container = document.querySelector("#dependentesContainer");
-//   		dependentes_container.innerHTML = "";
-//   dependentes.forEach((el)=>{
-//   	let identificador = el.identificador;
-//   	let nome = el.nome;
-//     let idade = el.idade;
-//     let dependente_container = `<div class="dependente" data-id="${identificador}">
-//     															<input class="nome" placeholder="Digite o nome" type="text" value="${nome}"/>
-//                                   <input class="idade" placeholder="Digite a idade" type="number" value="${idade}"/>
-//                                   <div class="action">
-//                                   	<a href="#" class="salvar">salvar 💾</a>
-//                                     <a href="#" class="remover">❌</a>
-// 																	</div>
-// 															  </div>`;
-//   	dependentes_container.innerHTML += dependente_container;
-//   });
-//   salvarDependentes();
-//   removerDependentes();
-//   travarOutros(false);
-// }
+	// Verifica se o campo está vazio
+	if(plusElement.previousElementSibling.value.trim() === ""){
+		return false;
+	}
 
-// function removerDependentes(){
-// 	document.querySelectorAll("#dependentesContainer .remover").forEach((el, i)=>{
-//   	el.addEventListener("click", ()=>{
-//   		dependentes.splice(i, 1);  	
-//       carregarDependentes();
-//     });
-//   });
-// }
+	// creating the div container.
+	let div = document.createElement("div");
+	div.setAttribute("class", "field");
 
-// function adicionarDependentes(){
-//   dependentes.push({identificador:"", nome:"", idade: ""});
-//   carregarDependentes();
-//   travarOutros(document.querySelector("#dependentesContainer > div:last-child"));
-// }
+	// Creating the input element.
+	let field = document.createElement("input");
+	field.setAttribute("type", "text");
+	field.setAttribute("name", "notes[]");
 
-// function salvarDependentes(){
-// 		document.querySelectorAll("#dependentesContainer .salvar").forEach((el, i)=>{
-//   	el.addEventListener("click", ()=>{
-//       let identificador = el.parentElement.parentElement.getAttribute("data-id");
-//       let nome = el.parentElement.parentElement.querySelector(".nome").value;
-//       let idade = el.parentElement.parentElement.querySelector(".idade").value;
-    	
-//       if(!nome.length || !idade.length){
-//       	alert("Nome e idade precisam ser preenchidos para salvar.");
-//         return false;
-//       }
-//   		dependentes.splice(i, 1, {identificador: identificador, nome: nome, idade: idade});
-//       carregarDependentes();
-//       travarOutros(false);
-//     });
-//   });
-// }
+	// Creating the plus span element.
+	let plus = document.createElement("span");
+	plus.setAttribute("onclick", "adicionarHobby(this)");
+	let plusText = document.createTextNode("+");
+	plus.appendChild(plusText);
 
-// function travarOutros(element){
-// 	if(element == false){
-//   	document.querySelectorAll(".dependentes button, .dependentes .container > div").forEach((el)=>{
-//     	el.classList.remove("disabled");
-//     });
-//     document.querySelector("#containerDados").innerHTML = "";
-//     return false;
-//   }
-//   document.querySelectorAll(".dependentes button, .dependentes .container > div").forEach((el)=>{
-//   	if(el != element){
-//     	el.classList.add("disabled");
-//     }
-//   });
-// }
+	// Creating the minus span element.
+	let minus = document.createElement("span");
+	minus.setAttribute("onclick", "removeField(this)");
+	let minusText = document.createTextNode("-");
+	minus.appendChild(minusText);
 
-// //init
-// document.querySelector("#btnAdicionarDependentes").addEventListener("click", adicionarDependentes);
-// carregarDependentes();
+	// Adding the elements to the DOM.
+	form.insertBefore(div, displayButton);
+	div.appendChild(field);
+	div.appendChild(plus);
+	div.appendChild(minus);
 
-// //capturarDados
-// document.querySelector("#btnCapturarDados").addEventListener("click", ()=>{
-// 	document.querySelector("#containerDados").innerHTML = JSON.stringify(dependentes, undefined, 4);
-// });
+	// Un hiding the minus sign.
+	plusElement.nextElementSibling.style.display = "block"; // the minus sign
+	// Hiding the plus sign.
+	plusElement.style.display = "none"; // the plus sign
+}
+
+function removeField(minusElement){
+   minusElement.parentElement.remove();
+}
+
+let form = document.forms[0];
+form.addEventListener("submit", fetchTextNotes);
+function fetchTextNotes(event){
+	// prevent the form to communicate with the server.
+	event.preventDefault();
+
+	// Fetch the values from the input fields.
+	let data = new FormData(form);
+
+	// Storing the values inside an array so we can handle them.
+	// we don't want empty values.
+	let notes = [];
+	data.forEach( function(value){
+		if(value !== ""){
+			notes.push(value);
+		}
+	});
+
+	// Output the values on the screen.
+	let out = "";
+	for(let note of notes){
+		out += `
+			<p>${note} <span onclick="markAsDone(this)">Mark as done</span></p>
+		`;
+	}
+	document.querySelector(".notes").innerHTML = out;
+
+	// Delete all input elements except the last one.
+	let inputFields = document.querySelectorAll(".field");
+	inputFields.forEach(function(element, index){
+		if(index == inputFields.length - 1){
+			element.children[0].value = "";
+		}else{
+			element.remove();
+		}
+	});
+}
+
+function markAsDone(element){
+	element.classList.add("mark");
+	element.innerHTML = "&check;";
+}
