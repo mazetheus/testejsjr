@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário</title>
+    
+    <link rel="stylesheet" href="styles.css">
+
+
+</head>
+
+<body>
+    
+    <div id="container">
+        <div class="header">
+            <!-- <input type="checkbox" id="toggle-dark"/>
+            <label for="toggle-dark"> -->
+            <button onclick="modoEscuro();">Dark Mode</button>
+        </div>
+        <div class="row2">
+            <div class="formfild">
+                <label for="nome"> Nome </label>
+                <input type="text" name="nome" id="nome" required>
+                <p class="erro" id="erro-nome">Informe um nome para continuar</p>
+            </div>
+            <div class="formfild">
+                <label for="nascimento"> Data de nascimento </label>
+                <input type="date" name="nascimento" id="nascimento" placeholder="" required>
+                <p class="erro" id="erro-cpf">Informe uma data válido</p>
+            </div>
+        </div>
+        <div class="row2">
+            <div class="formfild">
+                <label for="cpf"> CPF </label>
+                <input type="text" onkeydown="javascript: fMasc( this, mCPF );" maxlength="14" name="cpf" id="cpf" required>
+                <p class="erro" id="erro-cpf">Informe um CPF válido</p>
+            </div>
+            <div class="formfild">
+                <label for="idade"> Idade </label>
+                <input type="number" maxlength="3" name="idade" id="idade" required>
+                <p class="erro" id="erro-idade">Informe uma idade válida</p>
+            </div>
+        </div>
+        <div class="row3">
+            <div class="formfild">
+                <label for="cep"> CEP </label>
+                <input type="text" name="cep" id="cep" required>
+                <p class="erro" id="erro-cep">CEP inválido!</p>
+            </div>
+            <div class="formfild">
+                <label for="endereco">Endereço</label>
+                <input type="text" id="endereco"  required>
+            </div>
+            <div class="formfild">
+                <label for="numero">Número</label>
+                <input type="text" id="numero"  required>
+            </div>
+        </div>
+        <div class="row3">
+            <div class="formfild">
+                <label for="bairro">Bairro</label>
+                <input type="text" id="bairro"  required>                
+            </div>
+            <div class="formfild">
+                <label for="cidade">Cidade</label>
+                <input type="text" id="cidade"  required>
+            </div>
+            <div class="formfild">
+                <label for="estado">Estado</label>
+                <input type="text" id="estado"  required>
+            </div>
+        </div>
+        <div class="row2">
+            <div class="formfild formfild-hobbies ">
+                <label for="hobbies">Hobby</label>
+                <div class="fildhobbies">
+                    <input type="text" id="input-hobby" name="hobbies" placeholder="">
+                    <!-- <span onclick="newElement()" class="addBtn">Add</span> -->
+                    <button onclick="newElement()" class="addBtn">Add</button>
+                </div>
+            </div>
+            <div class="formfild-hobbies ">
+                <label class="titlehobbies">Hobbies adicionados:</label>
+                <ul id="listaHobbies"></ul>
+            </div>
+        </div>
+        <div class="row-center">
+            <div class="lgpd">
+                <input type="checkbox" id="aceite-termos">
+                <label for="aceite-termos">Li e concordo com os termos de uso</label>
+            </div>
+            <p class="erro" id="erro-lgpd">Você precisa aceitar nossos termos para prosseguir</p>
+
+            <div class="row-center">
+                <button class="botaoenvio" onclick="enviarFormulario();">Enviar</button>
+            </div>
+        </div>     
+    </div>
+
+    <script src="scripts.js"></script>
+
+</body>
+
+</html>
