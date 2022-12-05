@@ -1,6 +1,11 @@
-//Add função para ver se os campos do endereço não estão vazias
-
 // Função para enviar o formulário 
+const formElemento = document.getElementById("formulario");
+
+formElemento.addEventListener('submit', event => {
+  event.preventDefault();
+  enviarFormulario();
+});
+
 function enviarFormulario() {
 	
   if( validaNome() &&
@@ -10,10 +15,17 @@ function enviarFormulario() {
     validaCEP() &&
     validaEndereco() &&
     validaLGPD() ) {
-    alert("ok");
+
+    let formDados = new FormData(formElemento);
+    formDados.append('hobbies', listaDeHobbies);
+    const dados = Object.fromEntries(formDados);
+    let formJson = JSON.stringify(dados);
+
+    abrirModal(formJson);
   } else {
-    alert("erro");
+    alert("Verifique as informacões do formulário");
   }
+  
 }
 
 function validaNome() {
@@ -120,11 +132,11 @@ function validaLGPD() {
 	let inputLGPD= document.querySelector('#aceite-termos');
 
 	if(inputLGPD.checked) {
-		document.getElementById("erro-lgpd").classList.add("errovisivel");
+		document.getElementById("erro-lgpd").classList.remove("errovisivel");
 		return true;
 	}
 	else {
-		document.getElementById("erro-lgpd").classList.remove("errovisivel");
+		document.getElementById("erro-lgpd").classList.add("errovisivel");
 		return false;
 	}
 }
@@ -140,7 +152,6 @@ function consultarCep() {
 
   fetch(url).then(function(response){
     response.json().then(function(data){
-      console.log(data);
       if (data.hasOwnProperty('erro'))
         corretoCEP = false;
     })
@@ -248,6 +259,32 @@ function apagarHobby(indice){
   imprimirLista();
 }
 
+// Função para abrir o modal e imprimir as informações do formulário
+function abrirModal (dados) {
+  let respostasForm = JSON.parse(dados);
+  document.getElementById("modal").style.display = "block";
+
+  document.getElementById("form-content").innerHTML = 
+    "<p><strong>Nome:</strong> " + respostasForm.nome + "</p>" + 
+    "<p><strong>Data de Nascimento:</strong> " + respostasForm.nascimento + "</p>" + 
+    "<p><strong>CPF:</strong> " + respostasForm.cpf + "</p>" +
+    "<p><strong>Idade:</strong> " + respostasForm.idade + " anos</p>" + 
+    "<p><strong>Endereço:</strong><br>" + respostasForm.endereco + ", " + respostasForm.numero + "</p>" + 
+    "<p>" + respostasForm.bairro + ", " + respostasForm.cidade + " - " + respostasForm.estado + "</p>" + 
+    "<p><strong>Hobbies:</strong><br>" + respostasForm.hobbies + "</p>";
+}
+
+// Fechar o modal ao clicar fora da tela
+window.onclick = function(event) {
+  if (event.target == modal) {
+    fecharModal();
+  }
+}
+
+function fecharModal () {
+  modal.style.display = "none";
+}
+
 //Função para ativar o modo escuro
 //let isDark = document.querySelector('#toggle-dark').checked;
 let containerDiv = document.querySelector('#container');
@@ -255,10 +292,14 @@ let isDark = false;
 
 function modoEscuro(){
   isDark = !isDark;
-  if(isDark)
+  if(isDark) {
     containerDiv.classList.add("modo-escuro");
-  else
+    document.getElementsByClassName("botaodark")[0].innerText = "Light Mode";
+  }else{
+    document.getElementsByClassName("botaodark")[0].innerText = "Dark Mode";
     containerDiv.classList.remove("modo-escuro");
+  }
 }
+    
 
 
