@@ -59,7 +59,7 @@
   font-size: 10px;
 }
 
-#erro-nome, #erro-idade, #erro-lgpd, #erro-cpf {
+#erro-nome, #erro-idade, #erro-lgpd, #erro-cpf, #erro-cep {
   display: none;
 }
 
@@ -220,6 +220,9 @@
 }
 
 @media screen and (max-width: 720px) {
+  #container {
+    gap: 10px;
+  }
   .row2 {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 10px;
@@ -227,6 +230,9 @@
   .row3 {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 10px;
+  }
+  .erro {
+    margin-top: 10px;
   }
   .botaoenvio {
     margin: 0 10px;

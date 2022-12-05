@@ -1,15 +1,16 @@
+//Add função para ver se os campos do endereço não estão vazias
+
 // Função para enviar o formulário 
 function enviarFormulario() {
 	
-  	// alert(verificarCPF(cpf));
-  	validaCEP();
-	// if( validaNome() &&
-	// 	validaCPF() &&
-	// 	validaLGPD() ) {
-	// 	alert("ok");
-	// } else {
-	// 	alert("erro");
-	// }
+  if( validaNome() &&
+    validaCPF() &&
+    validaCEP() &&
+    validaLGPD() ) {
+    alert("ok");
+  } else {
+    alert("erro");
+  }
 }
 
 function validaNome() {
@@ -38,60 +39,42 @@ function validaCPF() {
 	}
 }
 
-function validaLGPD() {
-	let inputLGPD= document.querySelector('#aceite-termos');
-	let erroLGPD = document.querySelector('#erro-lgpd');
-
-	if(inputLGPD.checked) {
-		erroLGPD.style.display = "none";
-		return true;
-	}
-	else {
-		erroLGPD.style.display = "block";
-		return false;
-	}
-}
-
+// Estou fazendo dessa forma pois a descrição do projeto está pedindo para a verificacão ser feita quando o usuário apertar no submit
+// Eu sugeriria que o endereço fosse escrito automaticamente quando o CEP fosse digitado e faria isso pegando os valores do json e aplicando no input
 function validaCEP() {
+  // Remover todos os dígitos que não sejam números e salvar em uma variável
 	let inputCEP = document.querySelector('#cep').value.replace(/\D/g, '');
-	//let erroCEP = document.querySelector('#erro-cep');
-	if(inputCEP.length != 8)
-		alert("pequeno");
+	let erroCEP = document.querySelector('#erro-cep');
 
-	consultarCep(inputCEP);
-
-	if (!("erro" in dados_cep)) {
-		alert("ok");
-		// erroLGPD.style.display = "none";
-		// return true;
-	}
-	else {
-		alert("erro");
-		// erroLGPD.style.display = "block";
-		// return false;
-	}
+  console.log(consultarCep(inputCEP));
+  //Verifica se a quantidade de dígitos é correta e depois consulta o cep
+  if(inputCEP.length == 8 &&
+    consultarCep(inputCEP)) {
+    erroCEP.style.display = "none";
+    console.log("entrou true");
+    return true;
+  } else {
+    erroCEP.style.display = "block";
+    console.log("entrou false");
+    return false;
+  }
 }
 
 function consultarCep() {
-	var script = document.createElement('script');
-
   let cep = document.querySelector(`#cep`).value;
-  let url = `https://viacep.com.br/ws/${cep}/json/?callback=dados_cep`;
+  let url = `https://viacep.com.br/ws/${cep}/json/`;
 
-  script.src = url;
-  document.body.appendChild(script);
+  //Variável para receber a informação e retornar se o CEP está ok ou não 
+  let corretoCEP = true;
 
   fetch(url).then(function(response){
-    response.json().then(function(data) {
-      exibirEndereco(data);
+    response.json().then(function(data){
+      console.log(data);
+      if (data.hasOwnProperty('erro'))
+        corretoCEP = false;
     })
-  })
-}
-
-function exibirEndereco(dados) {
-  let resultado = document.querySelector('#resultado');
-
-  resultado.innerHTML = `<p>Endereço: ${dados.logradouro}</p>`;
+  });
+  return corretoCEP;
 }
 
 function verificarCPF(cpf) {	
@@ -128,7 +111,22 @@ function verificarCPF(cpf) {
     }
 }
 
-function fMasc(objeto, mascara) {
+function validaLGPD() {
+	let inputLGPD= document.querySelector('#aceite-termos');
+	let erroLGPD = document.querySelector('#erro-lgpd');
+
+	if(inputLGPD.checked) {
+		erroLGPD.style.display = "none";
+		return true;
+	}
+	else {
+		erroLGPD.style.display = "block";
+		return false;
+	}
+}
+
+//Funções para criar máscara ao digitar
+function mascararNum(objeto, mascara) {
     obj = objeto
     masc = mascara
     setTimeout("fMascEx()", 1)
@@ -138,15 +136,21 @@ function fMascEx() {
     obj.value = masc(obj.value)
 }
 
-function mCPF(cpf) {
+function mascaraCPF(cpf) {
     cpf = cpf.replace(/\D/g, "")
     cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2")
     cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2")
     cpf = cpf.replace(/(\d{3})(\d{1,2})$/, "$1-$2")
-    return cpf
+    return cpf;
 }
 
-//Lista de Hobbies
+function mascaraCEP(cep) {
+  cep = cep.replace(/\D/g, "");
+  cep = cep.replace(/^(\d{5})(\d)/,"$1-$2") 
+  return cep;
+}
+
+//Funções da lista de Hobbies
 
 // Criar um botão de excluir o hobby
 var listaHobby = document.getElementsByTagName("li");
@@ -176,7 +180,16 @@ for (cont = 0; cont < excluir.length; cont++) {
 }
 
 // Create a new list item when clicking on the "Add" button
-function newElement() {
+function novoHobby() {
+  // let tbody = document.querySelector('tbody');
+  var inputValue = document.getElementById("input-hobby").value;
+
+  // for (let cont = 0; cont < listaHobby.length; cont++) {
+  //   let tr = tbody.insertRow();
+  //   let td_acoes
+
+  // }
+
   var itemHobby = document.createElement("li");
   var inputValue = document.getElementById("input-hobby").value;
   var t = document.createTextNode(inputValue);
@@ -230,52 +243,3 @@ function modoEscuro(){
     containerDiv.classList.remove("modo-escuro");
   }
 }
-
-//Funcao do cep
-
-'use strict';
-
-let erroCEP = false;
-
-const zerarForm = (endereco) =>{
-    document.getElementById('endereco').value = '';
-    document.getElementById('bairro').value = '';
-    document.getElementById('cidade').value = '';
-    document.getElementById('estado').value = '';
-}
-
-
-const preencherFormulario = (endereco) =>{
-    document.getElementById('endereco').value = endereco.logradouro;
-    document.getElementById('bairro').value = endereco.bairro;
-    document.getElementById('cidade').value = endereco.localidade;
-    document.getElementById('estado').value = endereco.uf;
-}
-
-
-const eNumero = (numero) => /^[0-9]+$/.test(numero);
-
-const cepValido = (cep) => cep.length == 8 && eNumero(cep); 
-
-const procurarCEP = async() => {
-    zerarForm();
-    
-    const cep = document.getElementById('cep').value;
-    const url = `https://viacep.com.br/ws/${cep}/json/`;
-    if (cepValido(cep)){
-        const dados = await fetch(url);
-        const endereco = await dados.json();
-        if (endereco.hasOwnProperty('erro')){
-            document.getElementById('endereco').value = 'CEP não encontrado!';
-          erroCEP = true;
-        }else {
-            preencherFormulario(endereco);
-        }
-    }else{
-        document.getElementById('endereco').value = 'CEP incorreto!';
-    }
-     
-}
-
-document.getElementById('cep')
-        .addEventListener('focusout',procurarCEP);
