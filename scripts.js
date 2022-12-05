@@ -1,4 +1,4 @@
-// Função para enviar o formulário 
+// Verifica o evento de apertar o botão de submit do formulário
 const formElemento = document.getElementById("formulario");
 
 formElemento.addEventListener('submit', event => {
@@ -6,6 +6,7 @@ formElemento.addEventListener('submit', event => {
   enviarFormulario();
 });
 
+// Função para enviar o formulário 
 function enviarFormulario() {
 	
   if( validaNome() &&
