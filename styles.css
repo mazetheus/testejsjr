@@ -18,17 +18,27 @@
   display: flex;
   background-color: #D9AFD9;
   background-image: linear-gradient(0deg, #D9AFD9 0%, #97D9E1 100%);
-  flex-grow: 3;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 5% 20%;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   gap: 40px;
 }
 
 .header {
   display: flex;
   flex-direction: row-reverse;
+}
+
+.botaodark {
+  background-color: inherit;
+  border: 2px solid var(--bg-color);
 }
 
 .row2 {
@@ -51,6 +61,7 @@
 }
 
 .erro {
+  display: none;
   background-color: var(--error-color);
   color: white;
   z-index: 2;
@@ -59,8 +70,8 @@
   font-size: 10px;
 }
 
-#erro-nome, #erro-idade, #erro-lgpd, #erro-cpf, #erro-cep {
-  display: none;
+.errovisivel {
+  display: block;
 }
 
 .header label {
@@ -155,7 +166,7 @@
   display: flex;
   flex-direction: row;
 }
-.formfild-hobbies button {
+.formfild-hobbies .botaoadicionar {
   display: block;
   position: absolute;
   height: 40px;
@@ -168,6 +179,18 @@
   box-shadow: none;
   padding: 5px 10px;
   transition: 0.2s;
+}
+.formfild-hobbies .botaodeletar {
+  border: none;
+  color: var(--primary-color);
+  background-color: inherit;
+  font-size: 10px;
+  transition: 0.2s;
+}
+.formfild-hobbies .botaodeletar:hover {
+  font-size: 12px;
+  transition: 0.2s;
+  color: var(--error-color);
 }
 .formfild-hobbies input:focus + button {
   color: #fff;
@@ -220,7 +243,7 @@
 }
 
 @media screen and (max-width: 720px) {
-  #container {
+  form {
     gap: 10px;
   }
   .row2 {
@@ -235,7 +258,7 @@
     margin-top: 10px;
   }
   .botaoenvio {
-    margin: 0 10px;
+    margin: 10px 0;
     width: 100% !important;
   }
 }/*# sourceMappingURL=styles.css.map */

@@ -4,8 +4,11 @@
 function enviarFormulario() {
 	
   if( validaNome() &&
+    validaNascimento() &&
     validaCPF() &&
+    validaIdade() &&
     validaCEP() &&
+    validaEndereco() &&
     validaLGPD() ) {
     alert("ok");
   } else {
@@ -14,27 +17,50 @@ function enviarFormulario() {
 }
 
 function validaNome() {
-	let inputNome = document.querySelector('#nome').value;
-	let erroNome = document.querySelector('#erro-nome');
-	
+	let inputNome = document.querySelector('#nome').value;	
+
 	if (inputNome) {
-		erroNome.style.display = "none";
+		document.getElementById("erro-nome").classList.remove("errovisivel");
 		return true;
 	} else {
-		erroNome.style.display = "block";
+		document.getElementById("erro-nome").classList.add("errovisivel");
 		return false;
+	}
+}
+
+function validaNascimento() {
+  let inputNascimento = document.querySelector('#nascimento').value;
+
+  if (inputNascimento){
+  	document.getElementById("erro-nascimento").classList.remove("errovisivel");
+		return true;
+	} else {
+		document.getElementById("erro-nascimento").classList.add("errovisivel");
+		return false;
+	}
+}
+
+function validaIdade() {
+	let inputIdade = document.querySelector('#idade').value;
+
+	if (inputIdade < 0 ||
+    inputIdade == "") {
+		document.getElementById("erro-idade").classList.add("errovisivel");
+		return false;
+	} else {
+		document.getElementById("erro-idade").classList.remove("errovisivel");
+		return true;
 	}
 }
 
 function validaCPF() {
 	let inputCPF = document.querySelector(`#cpf`).value;
-	let erroCPF = document.querySelector('#erro-cpf');
 
 	if(verificarCPF(inputCPF)) {
-		erroCPF.style.display = "none";
+		document.getElementById("erro-cpf").classList.remove("errovisivel");
 		return true;
 	} else {
-		erroCPF.style.display = "block";
+		document.getElementById("erro-cpf").classList.add("errovisivel");
 		return false;
 	}
 }
@@ -44,22 +70,67 @@ function validaCPF() {
 function validaCEP() {
   // Remover todos os dígitos que não sejam números e salvar em uma variável
 	let inputCEP = document.querySelector('#cep').value.replace(/\D/g, '');
-	let erroCEP = document.querySelector('#erro-cep');
 
-  console.log(consultarCep(inputCEP));
   //Verifica se a quantidade de dígitos é correta e depois consulta o cep
   if(inputCEP.length == 8 &&
     consultarCep(inputCEP)) {
-    erroCEP.style.display = "none";
-    console.log("entrou true");
+    document.getElementById("erro-cep").classList.remove("errovisivel");
     return true;
   } else {
-    erroCEP.style.display = "block";
-    console.log("entrou false");
+    document.getElementById("erro-cep").classList.add("errovisivel");
     return false;
   }
 }
 
+function validaEndereco() {
+  let inputEndereco = document.querySelector('#endereco').value;
+  let inputBairro = document.querySelector('#bairro').value;
+  let inputCidade = document.querySelector('#cidade').value;
+  let inputEstado = document.querySelector('#estado').value;
+
+  if(inputEndereco == "") {
+    document.getElementById("erro-endereco").classList.add("errovisivel");
+    return false;
+  } else
+    document.getElementById("erro-endereco").classList.remove("errovisivel");
+
+  if(inputBairro == "") {
+    document.getElementById("erro-bairro").classList.add("errovisivel");
+    return false;
+  } else
+    document.getElementById("erro-bairro").classList.remove("errovisivel");
+
+  if(inputCidade == "") {
+    document.getElementById("erro-cidade").classList.add("errovisivel");
+    return false;
+  } else
+    document.getElementById("erro-cidade").classList.remove("errovisivel");
+
+  if(inputEstado == "") {
+    document.getElementById("erro-estado").classList.add("errovisivel");
+    return false;
+  } else
+    document.getElementById("erro-estado").classList.remove("errovisivel");
+
+  return true;
+
+}
+
+function validaLGPD() {
+	let inputLGPD= document.querySelector('#aceite-termos');
+
+	if(inputLGPD.checked) {
+		document.getElementById("erro-lgpd").classList.add("errovisivel");
+		return true;
+	}
+	else {
+		document.getElementById("erro-lgpd").classList.remove("errovisivel");
+		return false;
+	}
+}
+
+// Função para verificar o CEP na API VIACEP
+// A função apenas confere se o CEP existe, mas poderia conferir se o endereço informado bate com o da API ou fazer ele ser escrito automaticamente
 function consultarCep() {
   let cep = document.querySelector(`#cep`).value;
   let url = `https://viacep.com.br/ws/${cep}/json/`;
@@ -111,21 +182,7 @@ function verificarCPF(cpf) {
     }
 }
 
-function validaLGPD() {
-	let inputLGPD= document.querySelector('#aceite-termos');
-	let erroLGPD = document.querySelector('#erro-lgpd');
-
-	if(inputLGPD.checked) {
-		erroLGPD.style.display = "none";
-		return true;
-	}
-	else {
-		erroLGPD.style.display = "block";
-		return false;
-	}
-}
-
-//Funções para criar máscara ao digitar
+// Funções para criar máscara ao digitar
 function mascararNum(objeto, mascara) {
     obj = objeto
     masc = mascara
@@ -150,84 +207,45 @@ function mascaraCEP(cep) {
   return cep;
 }
 
-//Funções da lista de Hobbies
+// Funções da lista de Hobbies
 
-// Criar um botão de excluir o hobby
-var listaHobby = document.getElementsByTagName("li");
-
-//Cria uma lista para inserir os hobbies
+// Cria uma lista para inserir os hobbies
 let listaDeHobbies = [];
 
-var cont;
-for (cont = 0; cont < listaHobby.length; cont++) {
-	var span = document.createElement("SPAN");
-	var botaoX = document.createTextNode("\u00D7");
-	span.className = "excluir";
-	span.appendChild(botaoX);
-	listaHobby[cont].appendChild(span);
-}
-
-// Click on a close button to hide the current list item
-var excluir = document.getElementsByClassName("excluir");
-var cont;
-for (cont = 0; cont < excluir.length; cont++) {
-  excluir[cont].onclick = function() {
-    // var div = this.parentElement;
-    // div.style.display = "none";
-	console.log("entrou");
-	listaHobby.splice(cont,1);
-  }
-}
-
-// Create a new list item when clicking on the "Add" button
+// Criar um novo item na lista de hobbies ao clicar em Adicionar
 function novoHobby() {
-  // let tbody = document.querySelector('tbody');
-  var inputValue = document.getElementById("input-hobby").value;
-
-  // for (let cont = 0; cont < listaHobby.length; cont++) {
-  //   let tr = tbody.insertRow();
-  //   let td_acoes
-
-  // }
-
+  var inputValue = document.getElementById("inputHobby").value;
   var itemHobby = document.createElement("li");
-  var inputValue = document.getElementById("input-hobby").value;
   var t = document.createTextNode(inputValue);
   itemHobby.appendChild(t);
   
   //Verifica se o input não está vazio ao adicionar hobby
-  if (inputValue === '') {
+  if (inputValue === '')
     alert("Escreva algo antes de adicionar");
-  } else {
-    //document.getElementById("myUL").appendChild(itemHobby);
-	listaDeHobbies.push(inputValue);
-  }
+  else
+	  listaDeHobbies.push(inputValue);
   
   // Limpa o campo de imput
-  document.getElementById("input-hobby").value = "";
+  document.getElementById("inputHobby").value = "";
 
-  //Mostra os valores da lista na tela
+  imprimirLista();
+}
+
+function imprimirLista() {
   let lista = document.getElementById('listaHobbies');
   lista.innerText = "";
-  for (cont = 0; cont < listaDeHobbies.length; cont++) {
-	let item = document.createElement('li');
-	item.appendChild(document.createTextNode(listaDeHobbies[cont]));
-	lista.appendChild(item);
-  }
 
-  var span = document.createElement("span");
-  var txt = document.createTextNode("\u00D7");
-  span.className = "excluir";
-  span.appendChild(txt);
-  itemHobby.appendChild(span);
-
-  for (cont = 0; cont < excluir.length; cont++) {
-    excluir[cont].onclick = function() {
-    //   var div = this.parentElement;
-    //   div.style.display = "none";
-	  listaHobby.splice(cont,1);
-    }
+  for ( let cont = 0; cont < listaDeHobbies.length; cont++) {
+    let item = document.createElement('li');
+    // Coloco o botão de deletar - com o indice do elemento na lista - ao lado do nome
+    item.innerHTML = listaDeHobbies[cont] + ' <button class="botaodeletar" onclick="apagarHobby(' + cont + ');">Remover</button>';
+    lista.appendChild(item);
   }
+}
+
+function apagarHobby(indice){
+  listaDeHobbies.splice(indice, 1);
+  imprimirLista();
 }
 
 //Função para ativar o modo escuro
@@ -237,9 +255,10 @@ let isDark = false;
 
 function modoEscuro(){
   isDark = !isDark;
-  if(isDark){
+  if(isDark)
     containerDiv.classList.add("modo-escuro");
-  } else {
+  else
     containerDiv.classList.remove("modo-escuro");
-  }
 }
+
+

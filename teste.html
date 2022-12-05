@@ -1,59 +1,44 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href=".\teste.css">
-    <script src="teste.js" type="module" defer></script>
-    <title>Cadastro</title>
-</head>
+<html lang="en">
+
 <body>
-    <main class="container">
-        <h1 class="title">Formulário</h1>
-        <div class="row">
-            <div class="inputbox">
-                <input type="text" id="nome" required>
-                <label for="nome">Nome</label>
-            </div>
-            <div class="inputbox">
-                <input type="text" id="email"  required>
-                <label for="email">Email</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="inputbox">
-                <input type="text" id="cep"  required>
-                <label for="cep">CEP</label>
-            </div>
-            <div class="inputbox">
-                <input type="text" id="endereco"  required>
-                <label for="endereco">Endereço</label>
-            </div>
-            <div class="inputbox">
-                <input type="text" id="numero"  required>
-                <label for="numero">Número</label>
-            </div>
-        <!-- </div> -->
-        <!-- <div class="row"> -->
-            <div class="inputbox">
-                <input type="text" id="bairro"  required>
-                <label for="bairro">Bairro</label>
-            </div>
-            <div class="inputbox">
-                <input type="text" id="cidade"  required>
-                <label for="cidade">Cidade</label>
-            </div>
-            <div class="inputbox">
-                <input type="text" id="estado"  required>
-                <label for="estado">Estado</label>
-            </div>
-        </div>
-        <div class="row">
-            <button id="btn">Salvar</button>
-        </div>
-    </main>
-    <footer>
-        Prof. Fernando Leonid &#169 2021
-    </footer>
+  <header><h1></h1></header>
+  <section>
+   
+    <form action="#" method="post">
+      <div>
+        <label for="newitem">Add item</label>
+        <input type="text" name="newitem" id="newitem" 
+               placeholder="new item" />
+        <input type="submit" value="Add" />
+      </div>
+    </form>
+     <ul id="todolist"></ul>
+  </section>
+  
+<script>
+(function(){
+
+  var todo = document.querySelector( '#todolist' ),
+      form = document.querySelector( 'form' ),
+      field = document.querySelector( '#newitem' );
+    
+  form.addEventListener( 'submit', function( ev ) {
+    var text = field.value;
+    if ( text !== '' ) {
+      todo.innerHTML += '<li>' + text + ' <button onclick="Delete(this);">Delete</button> </li>';
+      field.value = '';
+      //field.focus();
+    }
+    ev.preventDefault();
+  }, false);
+
+
+
+})();
+  function Delete(currentEl){
+  currentEl.parentNode.parentNode.removeChild(currentEl.parentNode);
+  }
+</script>
 </body>
 </html>

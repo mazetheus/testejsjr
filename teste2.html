@@ -18,88 +18,105 @@
         <div class="header">
             <!-- <input type="checkbox" id="toggle-dark"/>
             <label for="toggle-dark"> -->
-            <button onclick="modoEscuro();">Dark Mode</button>
+            <button class="botaodark" onclick="modoEscuro();">Dark Mode</button>
+
         </div>
-        <div class="row2">
-            <div class="formfild">
-                <label for="nome"> Nome </label>
-                <input type="text" name="nome" id="nome" required>
-                <p class="erro" id="erro-nome">Informe um nome para continuar</p>
-            </div>
-            <div class="formfild">
-                <label for="nascimento"> Data de nascimento </label>
-                <input type="date" name="nascimento" id="nascimento" placeholder="" required>
-            </div>
-        </div>
-        <div class="row2">
-            <div class="formfild">
-                <label for="cpf"> CPF </label>
-                <input type="text" onkeydown="javascript: mascararNum( this, mascaraCPF );" maxlength="14" name="cpf" id="cpf" required>
-                <p class="erro" id="erro-cpf">Informe um CPF válido</p>
-            </div>
-            <div class="formfild">
-                <label for="idade"> Idade </label>
-                <input type="number" maxlength="3" name="idade" id="idade" required>
-                <p class="erro" id="erro-idade">Informe uma idade válida</p>
-            </div>
-        </div>
-        <div class="row3">
-            <div class="formfild">
-                <label for="cep"> CEP </label>
-                <input type="text" onkeydown="javascript: mascararNum( this, mascaraCEP );" maxlength="9" name="cep" id="cep" required>
-                <p class="erro" id="erro-cep">CEP inválido!</p>
-            </div>
-            <div class="formfild">
-                <label for="endereco">Endereço</label>
-                <input type="text" id="endereco"  required>
-            </div>
-            <div class="formfild">
-                <label for="numero">Número</label>
-                <input type="text" id="numero"  required>
-            </div>
-        </div>
-        <div class="row3">
-            <div class="formfild">
-                <label for="bairro">Bairro</label>
-                <input type="text" id="bairro"  required>                
-            </div>
-            <div class="formfild">
-                <label for="cidade">Cidade</label>
-                <input type="text" id="cidade"  required>
-            </div>
-            <div class="formfild">
-                <label for="estado">Estado</label>
-                <input type="text" id="estado"  required>
-            </div>
-        </div>
-        <div class="row2">
-            <div class="formfild formfild-hobbies ">
-                <label for="hobbies">Hobby</label>
-                <div class="fildhobbies">
-                    <input type="text" id="input-hobby" name="hobbies" placeholder="">
-                    <button onclick="novoHobby()" class="addBtn">Adicionar</button>
+        <form id="formulario">
+            <div class="row2">
+                <div class="formfild">
+                    <label for="nome"> Nome </label>
+                    <input type="text" name="nome" id="nome" required>
+                    <p class="erro" id="erro-nome">Informe um nome para continuar</p>
+                </div>
+                <div class="formfild">
+                    <label for="nascimento"> Data de nascimento </label>
+                    <input type="date" name="nascimento" id="nascimento" required>
+                    <p class="erro" id="erro-nascimento">Informe uma data válida</p>
                 </div>
             </div>
-            <div class="formfild-hobbies ">
-                <label class="titlehobbies">Hobbies adicionados:</label>
-                <!-- <ul id="listaHobbies"></ul> -->
-                <tbody id="tbody">
-
-                </tbody>
+            <div class="row2">
+                <div class="formfild">
+                    <label for="cpf"> CPF </label>
+                    <input type="text" onkeydown="javascript: mascararNum( this, mascaraCPF );" maxlength="14" name="cpf" id="cpf" required>
+                    <p class="erro" id="erro-cpf">Informe um CPF válido</p>
+                </div>
+                <div class="formfild">
+                    <label for="idade"> Idade </label>
+                    <input type="number" maxlength="3" name="idade" id="idade" required>
+                    <p class="erro" id="erro-idade">Informe uma idade válida</p>
+                </div>
             </div>
-        </div>
-        <div class="row-center">
-            <div class="lgpd">
-                <input type="checkbox" id="aceite-termos">
-                <label for="aceite-termos">Li e concordo com os termos de uso</label>
+            <div class="row3">
+                <div class="formfild">
+                    <label for="cep"> CEP </label>
+                    <input type="text" onkeydown="javascript: mascararNum( this, mascaraCEP );" maxlength="9" name="cep" id="cep" required>
+                    <p class="erro" id="erro-cep">CEP inválido!</p>
+                </div>
+                <div class="formfild">
+                    <label for="endereco">Endereço</label>
+                    <input type="text" id="endereco"  required>
+                    <p class="erro" id="erro-endereco">Informe um endereço</p>
+                </div>
+                <div class="formfild">
+                    <label for="numero">Número</label>
+                    <input type="text" id="numero" required>
+                </div>
             </div>
-            <p class="erro" id="erro-lgpd">Você precisa aceitar nossos termos para prosseguir</p>
-
+            <div class="row3">
+                <div class="formfild">
+                    <label for="bairro">Bairro</label>
+                    <input type="text" id="bairro" required>
+                    <p class="erro" id="erro-bairro">Informe um bairro</p>       
+                </div>
+                <div class="formfild">
+                    <label for="cidade">Cidade</label>
+                    <input type="text" id="cidade" required>
+                    <p class="erro" id="erro-cidade">Informe uma cidade</p> 
+                </div>
+                <div class="formfild">
+                    <label for="estado">Estado</label>
+                    <input type="text" id="estado" required>
+                    <p class="erro" id="erro-estado">Informe um estado</p> 
+                </div>
+            </div>
+            <div class="row2">
+                <div class="formfild formfild-hobbies ">
+                    <label for="hobbies">Hobby</label>
+                    <div class="fildhobbies">
+                        <input type="text" id="inputHobby" name="hobbies" placeholder="">
+                        <button onclick="novoHobby()" class="botaoadicionar">Adicionar</button>
+                    </div>
+                </div>
+                <div class="formfild-hobbies ">
+                    <label class="titlehobbies">Hobbies adicionados:</label>
+                    <ul id="listaHobbies"></ul>
+                </div>
+            </div>
             <div class="row-center">
-                <button class="botaoenvio" onclick="enviarFormulario();">Enviar</button>
-            </div>
-        </div>     
+                <div class="lgpd">
+                    <input type="checkbox" id="aceite-termos">
+                    <label for="aceite-termos">Li e concordo com os termos de uso</label>
+                </div>
+                <p class="erro" id="erro-lgpd">Você precisa aceitar nossos termos para prosseguir</p>
+
+                <div class="row-center">
+                    <button class="botaoenvio" type="submit" onclick="enviarFormulario()">Enviar</button>
+                </div>
+            </div>  
+        </form>   
+        
     </div>
+  
+
+    <div id="modal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <p>Some text in the Modal..</p>
+        </div>
+      
+      </div>
 
     <script src="scripts.js"></script>
 
